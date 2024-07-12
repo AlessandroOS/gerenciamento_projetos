@@ -61,7 +61,10 @@ Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas:
   `GRANT ALL PRIVILEGES ON DATABASE projeto TO postgres;`
 
 3. **Configuração do Projeto:**
-- Verifique o arquivo de configuração do Spring em `/gerenciamento_projetos/src/main/webapp/WEB-INF/applicationContext.xml` para garantir que esteja configurado corretamente.
+- Verifique o arquivo de configuração do Spring em `/gerenciamento_projetos/src/main/webapp/WEB-INF/applicationContext.xml`.
+
+- Na primeira vez em que executar o projeto altere a propriedade para `create`. <prop key="hibernate.hbm2ddl.auto">create</prop>
+- Nas próximas vezes altere e mantenha a propriedade para `update`. <prop key="hibernate.hbm2ddl.auto">update</prop>
 
 4. **Executando a Aplicação:**
 - Para usar a aplicação, é necessário ter o Tomcat 9 instalado e configurado.
