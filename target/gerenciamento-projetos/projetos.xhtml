@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+<h:head>
+    <title>Gerenciar Projetos</title>
+    <style>
+        .container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+        .form-panel, .table-panel {
+            margin-bottom: 20px;
+            padding: 20px;
+            display: inline-block;
+            text-align: left;
+            width: 80%;
+        }
+        .form-panel, .header {
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .table-panel, .header {
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .command-buttons {
+            text-align: left;
+            padding-top: 10px;
+        }
+        input {
+			margin-right: 5px;
+		}
+		.center-text {
+			text-align: center;
+		}
+		.logo-header {
+			height: 28px;
+		}
+		.header {
+			margin-bottom: 20px;
+		}
+    </style>
+</h:head>
+<h:body>
+    <rich:panel class="header">
+        <h:graphicImage class ="logo-header" value="/images/CAEd-logo.svg" alt="Logo" />
+    </rich:panel> 
+    
+    <div class="container">
+        <rich:panel class="form-panel" header="Gerenciar Projeto">
+            <h:form>
+                <h:panelGrid columns="2" columnClasses="label, input">
+                    <h:outputLabel value="Título" for="titulo" />
+                    <h:inputText id="titulo" value="#{projetoController.projeto.titulo}" required="true">
+                        <f:validateLength maximum="50" />
+                        <f:validateRequired />
+                    </h:inputText>
+
+                    <h:outputLabel value="Descrição" for="descricao" />
+                    <h:inputTextarea id="descricao" value="#{projetoController.projeto.descricao}" required="true">
+                        <f:validateLength maximum="255" />
+                        <f:validateRequired />
+                    </h:inputTextarea>
+
+                    <h:outputLabel for="dataInicio" value="Data de Início:" />
+                    <rich:calendar id="dataInicio" value="#{projetoController.projeto.dataInicio}" datePattern="dd/MM/yyyy" required="true">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <f:validateRequired />
+                    </rich:calendar>
+                </h:panelGrid>
+                <div class="command-buttons">
+                    <h:commandButton value="Salvar Projeto" action="#{projetoController.salvarProjeto}" />
+                    <h:commandButton value="Limpar Campos" action="#{projetoController.limparCampos}" />
+                </div>
+            </h:form>
+        </rich:panel>
+
+        <rich:panel class="table-panel" header="Lista de Projetos">
+            <h:form>
+                <rich:dataTable value="#{projetoController.projetos}" var="projeto">
+                    <rich:column>
+                        <f:facet name="header">Título</f:facet>
+                        #{projeto.titulo}
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Descrição</f:facet>
+                        #{projeto.descricao}
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Data de Início</f:facet>
+                        <h:outputText value="#{projeto.dataInicio}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </rich:column>
+                    <rich:column>
+                        <h:commandButton value="Editar" action="#{projetoController.editarProjeto(projeto)}" />
+                        <h:commandButton value="Excluir" action="#{projetoController.excluirProjeto(projeto.id)}" />
+                        <h:commandButton value="Adicionar/exibir Tarefas" action="#{projetoController.adicionarTarefa(projeto)}" />
+                    </rich:column>
+                </rich:dataTable>
+            </h:form>
+        </rich:panel>
+
+        <rich:panel class="form-panel" header="Adicionar Tarefas" rendered="#{not empty projetoController.projeto.id}">
+            <h:form>
+                <h:panelGrid columns="2" columnClasses="label, input">
+                    <h:outputLabel value="Título da Tarefa" for="tituloTarefa" />
+                    <h:inputText id="tituloTarefa" value="#{projetoController.tarefa.titulo}" required="true">
+                        <f:validateLength maximum="50" />
+                        <f:validateRequired />
+                    </h:inputText>
+
+                    <h:outputLabel value="Descrição da Tarefa" for="descricaoTarefa" />
+                    <h:inputTextarea id="descricaoTarefa" value="#{projetoController.tarefa.descricao}" required="true">
+                        <f:validateLength maximum="255" />
+                        <f:validateRequired />
+                    </h:inputTextarea>
+
+                    <h:outputLabel value="Prioridade" for="prioridade" />
+                    <h:selectOneMenu id="prioridade" value="#{projetoController.tarefa.prioridade}" required="true">
+                        <f:selectItems value="#{projetoController.prioridades}" />
+                        <f:validateRequired />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel value="Estimativa de Horas" for="estimativaHoras" />
+                    <h:inputText id="estimativaHoras" value="#{projetoController.tarefa.estimativaHoras}" required="true">
+                        <f:validateLength maximum="5" />
+                        <f:validateRequired />
+                    </h:inputText>
+                </h:panelGrid>
+                <div class="command-buttons">
+                    <h:commandButton value="Adicionar Tarefa" action="#{projetoController.salvarTarefa}" />
+                </div>
+            </h:form>
+        </rich:panel>
+
+        <rich:panel class="table-panel" header="Lista de Tarefas do Projeto">
+            <h:form>
+                <rich:dataTable value="#{projetoController.tarefas}" var="tarefa" rendered="#{not empty projetoController.tarefas}">
+                    <rich:column>
+                        <f:facet name="header">Título</f:facet>
+                        #{tarefa.titulo}
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Descrição</f:facet>
+                        #{tarefa.descricao}
+                    </rich:column>
+                    <rich:column>
+                        <f:facet name="header">Prioridade</f:facet>
+                        #{tarefa.prioridade}
+                    </rich:column>
+                    <rich:column class="center-text">
+                        <f:facet name="header">Estimativa de Horas</f:facet>
+                        #{tarefa.estimativaHoras}
+                    </rich:column>
+                    <rich:column>
+                        <h:commandButton value="Editar" action="#{projetoController.editarTarefa(tarefa)}" />
+                        <h:commandButton value="Excluir" action="#{projetoController.excluirTarefa(tarefa.id)}" />
+                    </rich:column>
+                </rich:dataTable>
+            </h:form>
+        </rich:panel>
+    </div>
+</h:body>
+</html>

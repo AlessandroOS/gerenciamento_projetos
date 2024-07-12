@@ -1,0 +1,9 @@
+com\exemplo\model\enumeration\Prioridade.class
+com\exemplo\service\TarefaService.class
+com\exemplo\model\Tarefa.class
+com\exemplo\dao\TarefaDAO.class
+com\exemplo\model\Projeto.class
+com\exemplo\config\DataLoader.class
+com\exemplo\dao\ProjetoDAO.class
+com\exemplo\service\ProjetoService.class
+com\exemplo\controller\ProjetoController.class
