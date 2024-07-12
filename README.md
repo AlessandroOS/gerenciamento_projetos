@@ -50,26 +50,42 @@ Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas:
 - `git clone https://github.com/AlessandroOS/gerenciamento_projetos.git`
 
 2. **Configuração do Banco de Dados:**
-- Crie um banco de dados PostgreSQL chamado `projeto`.
-  
-  `CREATE DATABASE projeto;`
 
-- Crie um usuário PostgreSQL com permissões para acessar o banco.
-  
-  `CREATE USER postgres WITH PASSWORD 'postgres';`
-  
-  `GRANT ALL PRIVILEGES ON DATABASE projeto TO postgres;`
+- Crie um banco de dados PostgreSQL chamado `projeto`:
+
+  ```sql
+  CREATE DATABASE projeto;
+  ```
+
+- Crie um usuário PostgreSQL com permissões para acessar o banco:
+
+  ```sql
+  CREATE USER postgres WITH PASSWORD 'postgres';
+  GRANT ALL PRIVILEGES ON DATABASE projeto TO postgres;
+  ```
 
 3. **Configuração do Projeto:**
+
 - Verifique o arquivo de configuração do Spring em `/gerenciamento_projetos/src/main/webapp/WEB-INF/applicationContext.xml`.
 
-- Na primeira vez em que executar o projeto altere a propriedade para `create`. "<prop key="hibernate.hbm2ddl.auto">create</prop>"
-- Nas próximas vezes altere e mantenha a propriedade para `update`. "<prop key="hibernate.hbm2ddl.auto">update</prop>"
+- Na primeira execução do projeto, altere a propriedade `hibernate.hbm2ddl.auto` para `create`:
+
+  ```xml
+  <prop key="hibernate.hbm2ddl.auto">create</prop>
+  ```
+
+  Nas execuções subsequentes, altere e mantenha a propriedade para `update`:
+
+  ```xml
+  <prop key="hibernate.hbm2ddl.auto">update</prop>
+  ```
 
 4. **Executando a Aplicação:**
-- Para usar a aplicação, é necessário ter o Tomcat 9 instalado e configurado.
-  
-Acesse a aplicação em: [http://localhost:8080/gerenciamento-projetos/projetos.xhtml](http://localhost:8080/gerenciamento-projetos/projetos.xhtml)
+
+- Para executar a aplicação, certifique-se de ter o Tomcat 9 instalado e configurado.
+
+- Acesse a aplicação no navegador através do seguinte link: [http://localhost:8080/gerenciamento-projetos/projetos.xhtml](http://localhost:8080/gerenciamento-projetos/projetos.xhtml)
 
 5. **Dados Preexistentes:**
-- Para facilitar o teste da aplicação, alguns dados já vêm inseridos automaticamente através da classe DataLoader. Esses dados incluem projetos e tarefas iniciais que são carregados no banco de dados ao iniciar a aplicação.
+
+- Para facilitar o teste da aplicação, alguns dados já são inseridos automaticamente ao iniciar a aplicação através da classe DataLoader. Estes incluem projetos e tarefas iniciais que são carregados no banco de dados.
