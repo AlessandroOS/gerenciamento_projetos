@@ -47,17 +47,18 @@ Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas:
 
 1. **Clonando o Repositório:**
 
-- git clone https://github.com/AlessandroOS/gerenciamento_projetos.git
+- `git clone https://github.com/AlessandroOS/gerenciamento_projetos.git`
 
 2. **Configuração do Banco de Dados:**
 - Crie um banco de dados PostgreSQL chamado `projeto`.
-  CREATE DATABASE projeto;
+  
+  `CREATE DATABASE projeto;`
 
 - Crie um usuário PostgreSQL com permissões para acessar o banco.
   
-  CREATE USER postgres WITH PASSWORD 'postgres';
+  `CREATE USER postgres WITH PASSWORD 'postgres';`
   
-  GRANT ALL PRIVILEGES ON DATABASE projeto TO postgres;
+  `GRANT ALL PRIVILEGES ON DATABASE projeto TO postgres;`
 
 3. **Configuração do Projeto:**
 - Verifique o arquivo de configuração do Spring em `/gerenciamento_projetos/src/main/webapp/WEB-INF/applicationContext.xml` para garantir que esteja configurado corretamente.
