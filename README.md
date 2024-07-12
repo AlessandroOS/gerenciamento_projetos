@@ -56,6 +56,7 @@ Antes de iniciar, certifique-se de ter as seguintes ferramentas instaladas:
 - Crie um usuário PostgreSQL com permissões para acessar o banco.
   
   CREATE USER postgres WITH PASSWORD 'postgres';
+  
   GRANT ALL PRIVILEGES ON DATABASE projeto TO postgres;
 
 3. **Configuração do Projeto:**
